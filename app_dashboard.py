@@ -2,56 +2,65 @@ import sqlite3
 import streamlit as st
 import pandas as pd
 
-# Configuración de interfaz premium
 st.set_page_config(page_title="Auditoría de Gasto Público MEF", page_icon="🏛️", layout="wide")
 
 DB_NAME = "revenue_operations.db"
 
-def cargar_datos_mef():
-    """Extrae los registros validados de la nueva estructura del MEF."""
+def cargar_resumen_distritos():
+    """Ejecuta una consulta SQL agregada directamente en el motor SQLite."""
     conn = sqlite3.connect(DB_NAME)
-    query = "SELECT * FROM gasto_mef"
+    # Aquí aplicamos el GROUP BY y SUM en SQL, directo en el motor relacional
+    query = """
+        SELECT distrito, SUM(monto_ejecutado) as total_ejecutado 
+        FROM gasto_mef 
+        GROUP BY distrito 
+        ORDER BY total_ejecutado DESC
+    """
     df = pd.read_sql_query(query, conn)
     conn.close()
     return df
 
-st.title("🏛️ Plataforma de Control Presupuestal y Auditoría - MEF")
-st.markdown("Procesamiento automatizado de datos abiertos gubernamentales bajo reglas de calidad UAT.")
+st.title("🏛️ Plataforma Avanzada de Control Presupuestal - MEF")
+st.markdown("Análisis agregativo de la ejecución financiera real por distritos de la República del Perú.")
 st.markdown("---")
 
 try:
-    df_mef = cargar_datos_mef()
+    # Cargamos la tabla agrupada
+    df_distritos = cargar_resumen_distritos()
     
-    # ─── SECCIÓN 1: KPIs EJECUTIVOS ───
-    col1, col2, col3 = st.columns(3)
+    # ─── SECCIÓN: FILTROS DINÁMICOS MULTI-SELECCIÓN ───
+    st.markdown("### 🔍 Filtros Interactivos de Auditoría")
+    distritos_disponibles = df_distritos["distrito"].unique().tolist()
     
-    with col1:
-        total_registros = len(df_mef)
-        st.metric(label="📊 Registros Auditados", value=total_registros)
-        
-    with col2:
-        monto_total = round(df_mef["monto_ejecutado"].sum(), 2)
-        st.metric(label="💰 Total Devengado (Gasto Real)", value=f"S/. {monto_total:,}")
-        
-    with col3:
-        gasto_promedio = round(df_mef["monto_ejecutado"].mean(), 2)
-        st.metric(label="📈 Gasto Promedio por Partida", value=f"S/. {gasto_promedio:,}")
-        
+    # Selector dinámico en la interfaz
+    distritos_seleccionados = st.multiselect(
+        "Selecciona uno o varios distritos para comparar la ejecución:",
+        options=distritos_disponibles,
+        default=distritos_disponibles[:5] # Por defecto muestra los 5 distritos con mayor gasto
+    )
+    
+    # Filtrado reactivo sobre el DataFrame
+    df_filtrado = df_distritos[df_distritos["distrito"].isin(distritos_seleccionados)]
+    
     st.markdown("---")
     
-    # ─── SECCIÓN 2: ANÁLISIS DISTRIBUTIVO ───
+    # ─── SECCIÓN 2: RENDERIZADO VISUAL PREMIUM ───
     col_graf, col_tabla = st.columns([3, 2])
     
     with col_graf:
-        st.markdown("### 📈 Ejecución Financiera por Sector")
-        # Agrupamos el gasto acumulado por cada sector del Estado
-        gasto_por_sector = df_mef.groupby("sector")["monto_ejecutado"].sum().reset_index()
-        st.bar_chart(data=gasto_por_sector, x="sector", y="monto_ejecutado", use_container_width=True)
-        
+        st.markdown("### 📊 Inversión Pública Real Recaudada (S/.)")
+        if not df_filtrado.empty:
+            st.bar_chart(data=df_filtrado, x="distrito", y="total_ejecutado", use_container_width=True)
+        else:
+            st.warning("⚠️ Selecciona al menos un distrito para visualizar la gráfica.")
+            
     with col_tabla:
-        st.markdown("### 🔍 Registros Validados en SQLite")
-        # Mostramos la tabla limpia para la auditoría visual del analista
-        st.dataframe(df_mef[["tipo_gobierno", "sector", "distrito", "monto_ejecutado"]], use_container_width=True, height=300)
+        st.markdown("### 📋 Resumen Agregado Consolidado")
+        st.dataframe(
+            df_filtrado.rename(columns={"distrito": "Distrito Ejecutor", "total_ejecutado": "Total Devengado (S/.)"}),
+            use_container_width=True, 
+            height=320
+        )
 
 except Exception as e:
-    st.error("⚠️ Error al conectar con la estructura de datos del MEF. Asegúrate de correr 'python rpa_ingesta.py' primero.")
+    st.error("⚠️ Estructura no actualizada. Corre 'python rpa_ingesta.py' primero.")
