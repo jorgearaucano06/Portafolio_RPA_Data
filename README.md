@@ -52,4 +52,4 @@ Durante las pruebas de estrés del motor, el pipeline arrojó las siguientes mé
 ---
 *Desarrollado de forma profesional con enfoque en optimización de infraestructuras de datos y buenas prácticas de TI.*
 
-![Vista Previa del Dashboard Premium](dashboard%20MEF.png)
+![Vista Previa del Dashboard Premium](dashboard_MEF.png)
