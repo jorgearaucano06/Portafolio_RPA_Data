@@ -91,8 +91,9 @@ def descargar_y_procesar_mef():
                             monto
                         ))
                         validos += 1
-                        
-                    except:
+
+                    except ValueError:
+                        # float() lanza ValueError con montos corruptos (texto, vacios)
                         corruptos += 1
                         continue
                 

@@ -1,6 +1,22 @@
+# Datos: NUNCA al repo (ni crudos ni procesados)
 *.db
 *.sqlite
-*.env
-__pycache__/
-.venv/
 *.csv
+*.parquet
+data/
+
+# Entorno y secretos
+*.env
+.venv/
+__pycache__/
+
+# Artefactos locales de Spark
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Config local de herramientas
+.claude/
