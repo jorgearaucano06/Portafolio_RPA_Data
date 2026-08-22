@@ -3,7 +3,16 @@
 *.sqlite
 *.csv
 *.parquet
-data/
+/data/
+
+# Excepcion: CSV de tests SI va al repo
+!tests/data/
+!tests/data/*.csv
+
+# Modelos serializados: NUNCA al repo
+models/
+*.pkl
+*.joblib
 
 # Entorno y secretos
 *.env
@@ -17,6 +26,9 @@ derby.log
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Logs
+logs/
 
 # Config local de herramientas
 .claude/
