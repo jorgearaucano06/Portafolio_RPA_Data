@@ -1,0 +1,81 @@
+JORGE JEFERSON ARAUCANO BONIFAZ
+Cientifico de Datos | Data Engineering & Business Intelligence
+jorgearaucano06@gmail.com  •  +51 936 453 122  •  LinkedIn: jorge-jeferson-araucano  •  GitHub: [tu-usuario]
+Ingeniero de Sistemas colegiado  •  Master en Business Intelligence & Big Data  •  Disponibilidad 100% remoto (huso horario adaptable a Espana)
+
+PERFIL PROFESIONAL
+
+Cientifico de Datos con mas de 5 anos de experiencia en ETL/ELT, SQL avanzado, modelado predictivo y procesamiento distribuido. Manejo de pipelines de Machine Learning end-to-end con scikit-learn y PySpark MLlib (regresion, clustering, cross-validation, feature engineering). Experiencia en procesamiento distribuido con PySpark y Spark SQL sobre datasets de +500 MB, persistencia en Parquet particionado y dashboards ejecutivos con Power BI, Streamlit y Looker Studio. Trayectoria en Google Cloud Platform (BigQuery), calidad de datos con filtros UAT automatizados, modelado dimensional (esquema estrella) y gobierno de datos con Row-Level Security (RLS). Historial demostrable de reducir tiempos de procesamiento en mas del 70% y construir modelos predictivos con metricas validadas (RMSE, R2, Silhouette Score). Acostumbrado a traducir requerimientos de negocio en soluciones de datos escalables, trabajando con metodologias agiles (Scrum) y control de versiones con Git/GitHub.
+
+EXPERIENCIA PROFESIONAL
+
+Lider Tecnico de Datos y Ciencia de Datos  |  JOTAAPEX - Consultoria Tecnologica & Soluciones de Datos (Remoto)   02/2026 - Actualidad
+
+•  Pipeline de ML para analisis presupuestal (MEF Peru): disene y construi un pipeline end-to-end de ingesta, procesamiento distribuido y modelado predictivo sobre datos reales de ejecucion presupuestal del Ministerio de Economia y Finanzas (+500 MB, +200K registros). Procesamiento paralelo con PySpark sobre 32 cores, reemplazando un pipeline single-core en SQLite.
+
+•  Modelos predictivos: implemente modelos de regresion (Random Forest, Gradient Boosting, Linear Regression) para predecir ejecucion presupuestal por jurisdiccion, con cross-validation (k=5) y metricas validadas (RMSE, MAE, R2). Clustering de jurisdicciones con K-Means (Elbow Method) y DBSCAN, evaluado con Silhouette Score.
+
+•  Arquitectura profesional de datos: disene una arquitectura modular en Python con configuracion centralizada (dataclasses inmutables), logging profesional (stdlib), excepciones custom, pipeline runner con metricas por etapa y suite de 30 tests automatizados con pytest.
+
+•  Arquitectura de datos end-to-end: disene un modelo relacional de mas de 50 tablas en PostgreSQL para una plataforma de mando y control operacional en tiempo real, con tablas de hechos y dimensiones y pipelines de pre-agregacion batch que redujeron la carga de dashboards de segundos a milisegundos.
+
+•  Gobierno y seguridad del dato: implemente arquitectura multi-tenant con Row-Level Security (RLS) y validacion de esquemas, garantizando aislamiento de datos por cliente e integridad de la informacion.
+
+•  Automatizacion RPA: desarrolle scripts en Python para generacion e integracion masiva de codigos de barras (Code 128, EAN-13, QR) sobre plantillas vectoriales, eliminando el procesamiento manual y los errores de duplicidad.
+
+•  Desarrollo full-stack de soporte: apps moviles (Flutter/Dart + Supabase/PostgreSQL) y sistema de escritorio offline-first (Tauri, React, TypeScript, SQLite) con respaldo automatico de datos.
+
+Analista de Datos / Especialista en Automatizacion  |  Gedco (Lima, Peru)   01/2025 - 02/2026
+
+•  ETL y automatizacion de reporting financiero: disene un pipeline en Python con persistencia en SQLite para consolidar reportes de cobranzas desde multiples archivos Excel masivos (200-300 MB), reduciendo mas del 70% el tiempo de elaboracion y eliminando errores de procesamiento.
+
+•  Calidad del dato: validacion, deteccion de duplicados e inconsistencias y reconciliacion de cifras entre origen y destino antes de la carga a reporting.
+
+•  Dashboards ejecutivos: desarrolle cuadros de mando en Power BI (DAX) y Looker Studio con KPIs de recuperacion de cartera (efectividad de contacto, promesas de pago, mora, desempeno por canal), acelerando el analisis diario para la toma de decisiones.
+
+Analista de Datos y Auditoria Operativa  |  Necomplus (Lima, Peru)   06/2023 - 12/2024
+
+•  Big Data en GCP: participe en el proyecto Botmaker-BigData conectando y transformando volumenes masivos de interacciones de WhatsApp con Google BigQuery, alimentando dashboards en Power BI y Looker Studio con KPIs operativos (NDA, NDS, TMO).
+
+•  ETL y web scraping: desarrolle scripts de extraccion automatizada en Python (Selenium/Playwright) para datos operativos, reduciendo drasticamente los tiempos de carga manual.
+
+Encargado de Central de Metas I & Analista de Incidencias  |  Municipalidad de Carabayllo (Lima, Peru)   01/2020 - 05/2023
+
+•  Digitalizacion: disene y despliegue el sistema SIREI (Excel/VBA), migrando registros fisicos a una base de datos centralizada y elevando la precision del analisis de incidencias criticas.
+
+•  Reporting operativo: dashboards en Looker Studio conectados a sistemas gubernamentales (SIPCOP) y Google Sheets para seguimiento en tiempo real de operatividad y patrones delictivos.
+
+HABILIDADES TECNICAS
+
+•  Machine Learning: scikit-learn, PySpark MLlib, regresion (Random Forest, Gradient Boosting), clustering (K-Means, DBSCAN), cross-validation, feature engineering, evaluacion de modelos (RMSE, MAE, R2, Silhouette Score), serializacion con joblib.
+
+•  Procesamiento distribuido: PySpark, Spark SQL, Parquet particionado, lazy evaluation, DataFrames distribuidos, pipelines MLlib (VectorAssembler, StringIndexer, OneHotEncoder).
+
+•  SQL avanzado: consultas complejas, joins, agregaciones, funciones de ventana, validacion de claves, deteccion de duplicados, optimizacion e indexacion — SQL Server (T-SQL), PostgreSQL, MySQL, SQLite, BigQuery.
+
+•  Python para datos: pandas, numpy, scipy, matplotlib, seaborn, procesamiento de archivos masivos, ETL/ELT, web scraping (Selenium, Playwright), automatizacion RPA, logging profesional, pytest.
+
+•  Business Intelligence: Power BI (DAX, Power Query, RLS), Looker Studio, Streamlit, Tableau, diseno de dashboards ejecutivos y KPIs, Excel avanzado.
+
+•  Modelado de datos: modelado dimensional (esquema estrella / copo de nieve), tablas de hechos y dimensiones, modelos relacionales, migracion y reconciliacion de datos.
+
+•  Cloud y DevOps: Google Cloud Platform (BigQuery), Azure (fundamentos), Git/GitHub, metodologias agiles (Scrum), pruebas de calidad de datos (UAT).
+
+•  Desarrollo: JavaScript/TypeScript, React, Node.js, Flutter (Dart), VBA, Power Automate.
+
+EDUCACION
+
+•  Maestria en Business Intelligence y Big Data — EUDE Business School (Espana)
+•  Ingenieria de Sistemas (Titulado, Colegiado y Habilitado) — Universidad Privada del Norte (UPN)
+
+CERTIFICACIONES
+
+•  Programa de Especializacion en Power BI (Basico - Intermedio - Avanzado, 180 horas) — NETCRAM / Colegio de Ingenieros del Peru (2024)
+•  Especialista en Analisis de Datos con Python y Power BI — Data Science Analysis
+•  Especializacion en Data Analytics & Business Intelligence — NETZUN
+•  Seminario Business Intelligence con SQL Server — INFOPUCP
+
+IDIOMAS
+
+•  Espanol: nativo.
+•  Ingles: lectura tecnica (en formacion activa hacia nivel B2).
