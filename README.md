@@ -4,19 +4,21 @@ Pipeline end-to-end de **Data Engineering, Machine Learning y Business Intellige
 sobre datos reales de ejecucion presupuestal del Ministerio de Economia y Finanzas (MEF).
 
 Cubre el ciclo completo: ingesta masiva por HTTP, procesamiento distribuido con Spark,
-filtros de calidad, modelos predictivos (regresion + clustering), y dashboard interactivo.
+filtros de calidad, modelos predictivos (regresion + clustering), dashboard interactivo
+y replica del pipeline en Databricks (nube).
 
 ---
 
 ## Que hace este proyecto
 
-1. **Descarga datos reales** del portal de datos abiertos del MEF (CSV de ~500 MB)
+1. **Descarga datos reales** del portal de datos abiertos del MEF (CSV de ~8 GB, +100k filas procesadas)
 2. **Filtra y limpia** con reglas de calidad UAT (rechaza montos invalidos, registros incompletos)
 3. **Procesa con Spark** en paralelo usando todos los cores disponibles
 4. **Persiste en Parquet** particionado por anio y departamento
 5. **Analiza** con estadisticas descriptivas, correlaciones y deteccion de outliers
 6. **Entrena modelos ML** para predecir gasto y agrupar jurisdicciones por patrones
 7. **Visualiza** en un dashboard Streamlit con metricas descriptivas y predictivas
+8. **Replica en Databricks** con pipeline completo en la nube (ingesta automatica, capas Bronze/Silver/Gold, EDA, ML)
 
 ---
 
@@ -61,15 +63,16 @@ Portafolio_RPA_Data/
 | Capa | v1 | v2 |
 |------|----|----|
 | Procesamiento | Python fila a fila (1 core) | PySpark 4.1.2 (32 cores) |
-| Almacenamiento | SQLite | Parquet particionado |
+| Almacenamiento | SQLite | Parquet particionado + Delta Lake |
 | Logging | print() | stdlib logging |
 | Tests | Ninguno | pytest (30 tests) |
 | ML | Ninguno | scikit-learn + PySpark MLlib |
 | Dashboard | KPIs basicos | Descriptivo + Predictivo + Clustering |
 | Config | Hardcodeada | Dataclasses frozen + .env |
+| Nube | Ninguno | Databricks Free Edition |
 
 **Stack**: Python 3.14, PySpark 4.1.2, JDK 17 (Temurin), scikit-learn, pandas,
-Streamlit, matplotlib, seaborn.
+Streamlit, matplotlib, seaborn, Databricks, Delta Lake.
 
 ---
 
@@ -147,12 +150,36 @@ tests/test_features.py     — 10 tests (encoding, clustering, shapes)
 | 5 | EDA: estadisticas, distribuciones, correlacion, outliers | Completada |
 | 6 | ML con scikit-learn: regresion + clustering | Completada |
 | 7 | ML distribuido con PySpark MLlib | Completada |
-| 8 | Replica en Databricks Community Edition | Pendiente |
+| 8 | Replica en Databricks Free Edition (5 notebooks, 6 tablas Delta) | Completada |
 | 9 | Dashboard avanzado (descriptivo + predictivo + clustering) | Completada |
-| 10 | Documentacion final + merge a main | En curso |
+| 10 | Documentacion final + merge a main | Completada |
 
 Detalle completo: [`docs/plan_v2.md`](docs/plan_v2.md) |
 Progreso: [`docs/checklist.md`](docs/checklist.md)
+
+---
+
+## Databricks (nube)
+
+El pipeline completo se replico en Databricks Free Edition con 5 notebooks y arquitectura de Data Lake:
+
+| Notebook | Que hace |
+|----------|----------|
+| `00_verificacion` | Lectura de tablas, filtros, agregaciones, Spark SQL |
+| `01_ingesta_automatica` | Descarga automatica desde API del MEF (100,000 filas) |
+| `02_calidad_y_agregaciones` | Filtros UAT + agregaciones por departamento y sector |
+| `03_eda` | Estadisticas descriptivas, distribuciones, outliers, graficos |
+| `04_machine_learning` | Regresion (3 modelos) + clustering K-Means (15 departamentos) |
+
+### Capas del Data Lake
+
+```
+Bronze (gasto_mef_muestra)         → datos crudos, todo string
+Silver (gasto_mef_tipado)          → tipos correctos (int, double, string)
+Silver+ (gasto_mef_validos)        → solo registros que pasan filtro UAT
+Gold (gold_gasto_por_departamento) → agregacion lista para negocio
+Gold (gold_gasto_por_sector)       → agregacion lista para negocio
+```
 
 ---
 

@@ -3,7 +3,7 @@
 > Referencia rapida para retomar el trabajo si se corta la sesion.
 > Marcar con `[x]` cada paso completado. Actualizar la linea "Ultimo avance".
 
-**Ultimo avance**: Fases 0-7 y 9 completadas (codigo + 30 tests + 3 commits locales).
+**Ultimo avance**: Fases 0-9 completadas. Fase 8 (Databricks) terminada con 5 notebooks y 6 tablas Delta.
 **Rama activa**: `feature/spark-setup` (no se ha hecho push a GitHub todavia)
 **Plan completo**: `docs/plan_v2.md`
 
@@ -22,7 +22,7 @@
 | Fase 5 — EDA | 1 notebook (29 celdas) | — | Listo |
 | Fase 6 — ML sklearn | 3 archivos + 1 notebook | 10 tests | Listo |
 | Fase 7 — ML MLlib | 1 archivo | — | Listo |
-| Fase 8 — Databricks | — | — | Pendiente (manual, ver guia abajo) |
+| Fase 8 — Databricks | 5 notebooks en Databricks | — | Listo |
 | Fase 9 — Dashboard v2 | 1 archivo | — | Listo |
 | Fase 10 — Docs + merge | README + checklist | — | En curso |
 
@@ -105,24 +105,35 @@ Para subir a GitHub: `git push origin feature/spark-setup`
 - [x] `src/ml/spark_models.py` — pipeline StringIndexer -> OHE -> VectorAssembler -> modelo
 - [x] Funcion comparar_sklearn_vs_mllib()
 
-## Fase 8 — Databricks Free Edition [PENDIENTE]
+## Fase 8 — Databricks Free Edition [COMPLETADA]
 
-> **Nota**: Community Edition se retiro en enero 2026. Usar **Free Edition** (gratis, sin tarjeta).
-> **MLflow NO esta disponible** en Free Edition. El tracking local con JSON que construimos
-> en `src/ml/evaluacion.py` cubre esa necesidad para el portafolio.
+> **Nota**: Community Edition se retiro en enero 2026. Se uso **Free Edition** (gratis, sin tarjeta).
+> **MLflow NO esta disponible** en Free Edition. El tracking local con JSON en `src/ml/evaluacion.py` cubre esa necesidad.
 
-### Pasos para completar esta fase:
+### Notebooks creados en Databricks:
 
-1. [ ] Crear cuenta en https://www.databricks.com/learn/free-edition (correo o Google)
-2. [ ] En el workspace: Workspace > Import > subir `notebooks/01_eda.ipynb` y `02_ml_sklearn.ipynb`
-3. [ ] Subir CSV: Data > Add data > subir `sample_gasto.csv` (o el CSV completo)
-4. [ ] Ajustar notebooks para Databricks:
-   - Quitar `from config.spark_config import crear_spark_session` (Spark ya existe)
-   - Cambiar rutas de archivos a `/FileStore/tables/tu_archivo.csv`
-   - La variable `spark` ya viene creada, no hay que instanciarla
-5. [ ] Ejecutar notebooks y verificar que los resultados son coherentes con local
-6. [ ] Tomar capturas de pantalla como evidencia
-7. [ ] Documentar diferencias local vs Databricks en el notebook o en un markdown
+1. [x] `00_verificacion` — lectura de tablas, filtros, agregaciones, SQL
+2. [x] `01_ingesta_automatica` — descarga automatica desde API del MEF (100,000 filas), capas Bronze y Silver
+3. [x] `02_calidad_y_agregaciones` — filtros UAT + capas Gold (gasto por departamento y sector)
+4. [x] `03_eda` — estadisticas descriptivas, distribuciones, outliers (IQR), graficos
+5. [x] `04_machine_learning` — 3 modelos de regresion (Linear, RF, GBT) + clustering K-Means (15 departamentos, 3 clusters)
+
+### Tablas Delta creadas:
+
+- `sample_gasto` — testing (50 filas, subida manual)
+- `gasto_mef_muestra` — Bronze (99,809 filas, todo string)
+- `gasto_mef_tipado` — Silver (99,809 filas, tipos correctos)
+- `gasto_mef_validos` — Silver filtrada (solo registros validos)
+- `gold_gasto_por_departamento` — Gold (agregacion por departamento)
+- `gold_gasto_por_sector` — Gold (agregacion por sector)
+
+### Aprendizajes documentados:
+
+- Capas Bronze/Silver/Gold en un Data Lake
+- Schema explicito vs inferido (buena practica)
+- try_cast para manejar datos sucios sin romper el pipeline
+- Tablas Delta son permanentes (persisten al apagar el cluster)
+- Variables en memoria se pierden al reiniciar (tablas no)
 
 ## Fase 9 — Dashboard v2 [COMPLETADA]
 
