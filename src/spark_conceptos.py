@@ -17,8 +17,8 @@ import logging
 import time
 
 from config.logging_config import setup_logging
-from config.spark_config import crear_spark_session
 from config.settings import settings
+from config.spark_config import crear_spark_session
 
 setup_logging()
 logger = logging.getLogger(__name__)

@@ -11,8 +11,8 @@ Ejecucion:
     streamlit run app_dashboard_v2.py
 """
 
-import sys
 import os
+import sys
 from pathlib import Path
 
 # Agregar raiz del proyecto al path
@@ -20,9 +20,9 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-import streamlit as st
-import pandas as pd
 import numpy as np
+import pandas as pd
+import streamlit as st
 
 from config.settings import settings
 

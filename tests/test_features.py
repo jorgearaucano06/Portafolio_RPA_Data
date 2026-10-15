@@ -8,10 +8,10 @@ Ejecucion:
     python -m pytest tests/test_features.py -v
 """
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-from src.ml.features import preparar_features_registro, preparar_features_clustering
+from src.ml.features import preparar_features_clustering, preparar_features_registro
 
 
 def _crear_df_ejemplo() -> pd.DataFrame:
