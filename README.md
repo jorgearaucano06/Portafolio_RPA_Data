@@ -1,3 +1,5 @@
+[![CI](https://github.com/jorgearaucano06/Portafolio_RPA_Data/actions/workflows/ci.yml/badge.svg)](https://github.com/jorgearaucano06/Portafolio_RPA_Data/actions/workflows/ci.yml)
+
 # Plataforma de Ingesta, Control Presupuestal y ML — MEF Peru
 
 Pipeline end-to-end de **Data Engineering, Machine Learning y Business Intelligence**
