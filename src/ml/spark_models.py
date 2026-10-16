@@ -16,8 +16,8 @@ import logging
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from pyspark.sql import DataFrame, SparkSession
     from pyspark.ml import PipelineModel
+    from pyspark.sql import DataFrame, SparkSession
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +74,6 @@ def crear_pipeline_regresion(
     stages = []
 
     # StringIndexer + OneHotEncoder para cada categorica
-    indexed_cols = []
     encoded_cols = []
 
     for col_name in categoricas:
